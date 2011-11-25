@@ -1,0 +1,75 @@
+<html>
+  <head>
+	<link rel="stylesheet" href="style.css" type="text/css"/>
+    <script src="jquery-1.2.6.min.js" type="text/javascript"></script>
+    <script src="client.js" type="text/javascript"></script>
+
+    <title>twitter chat</title>
+  </head>
+  <body>
+    <div class="container">
+      <div id="connect">
+        <form action="#">
+		<h2>twitter chat</h2>
+		
+		  <p>Ingrese su nombre de usuario para continuar</p>
+          <fieldset> 
+
+			<div class="clearfix">
+				<label for="nick">Usuario</label>
+				<div class="input">
+            		<input id="nickInput" class="xlarge" type="text" name="nick" value=""/>
+				</div>
+			</div>
+
+			<div class="actions">
+            	<input id="connectButton" class="btn primary" type="submit" name="" value="Ingresa al Chat"/>
+			</div>			
+          </fieldset>
+        </form>
+
+		<h3>Conectate con tu twitter</h3>
+		<a href="oauth/twitter">
+			<img src="http://www.farsdebalears.org/wp-content/plugins/simple-twitter-connect/images/Sign-in-with-Twitter-darker.png" />
+		</a>		
+		
+      </div>
+      <div id="loading"><p>loading</p></div>
+      <div id="log">
+      </div>
+      <div id="toolbar">
+        <ul id="status">
+          <li><a id="usersLink" href="#">5 users</a></li>
+          <li>uptime: <span id="uptime">?</span></li>
+          <li>memory: <span id="rss">?</span>mb RSS</li>
+        </ul>
+        <input tabindex="1" type="text" id="entry"/>
+      </div>
+
+	<script type="text/javascript">
+	var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+
+	if(vars.length > 0) {
+		if(vars.twitter != undefined) {
+		    $.ajax({ cache: false
+		           , type: "GET"
+		           , dataType: "json"
+		           , url: "/join"
+		           , data: {}
+		           , error: function () {
+		               showConnect();
+		            }
+		           , success: onConnect
+		     });
+		}
+	}
+	</script>
+  </body>
+</html>
